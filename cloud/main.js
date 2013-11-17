@@ -1,6 +1,6 @@
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
-
+var User = AV.Object.extend('_User');
 var password = 'qweqwe123';
 
 AV.Cloud.define("hello", function(request, response) {
