@@ -243,19 +243,22 @@ var register = function(request,response,count,error,type)
 
 //                    response.success(user);
 //                    console.dir(user);
-
-                    return {"user":user};
+//                    return {"user":user};
+                    response.success(user);
 
                 },function(error) {
 
 //                    response.error(error);
-                    return {"error":error};
+                    response.error(error);
+//                    return {"error":error};
                 });
             },
             error: function(user, error) {
 
-                return {"error":error};
+//                return {"error":error};
+                response.error(error);
             }
+
         });
     }
 }
