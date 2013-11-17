@@ -205,6 +205,8 @@ var register = function(request,response,count,error,type)
 {
     if (count<=0) response.error(error);
 
+    console.log('注册');
+
     var username = request.params.guid;
 
     if (!username)
@@ -229,11 +231,11 @@ var register = function(request,response,count,error,type)
         user.signUp(null, {
             success: function(user) {
 
-                var userRelation = new UserRelation();
-                user.set('userRelation', userRelation);
-
-                var userInfo = new UserInfo();
-                user.set('userInfo', userInfo);
+//                var userRelation = new UserRelation();
+//                user.set('userRelation', userRelation);
+//
+//                var userInfo = new UserInfo();
+//                user.set('userInfo', userInfo);
 
                 user.save().then(function(user){
 
