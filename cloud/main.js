@@ -27,6 +27,7 @@ AV.Cloud.define('tv_register', function(request, response) {
 
     var result = register(request,response,10,null,"tv");
     var user = result["user"];
+    console.dir(user);
     if (user)
     {
         response.success(user);
@@ -241,7 +242,7 @@ var register = function(request,response,count,error,type)
 
 //                    response.success(user);
                     console.dir(user);
-                    console.dir({"user":user});
+
                     return {"user":user};
 
                 },function(error) {
