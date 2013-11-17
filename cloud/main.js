@@ -99,6 +99,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 //    userQ.include('userFavicon');
     userPQ.first().then(function(user){
 
+        console.dir(user);
         if (user.get('type') == 'phone')
         {
             phoneUser = user;
@@ -123,7 +124,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
     });
 }
 
-var bindingPhoneToTV = function(tvUser,phoneUser) {
+var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
     console.log('开始绑定');
     if (tvUser && phoneUser)
@@ -137,7 +138,7 @@ var bindingPhoneToTV = function(tvUser,phoneUser) {
     }
 }
 
-var unbindingPhoneToTV = function(tvUser,phoneUser) {
+var unbindingPhoneToTV = function(response,tvUser,phoneUser) {
 
     console.log('解除绑定');
     if (tvUser && phoneUser)
