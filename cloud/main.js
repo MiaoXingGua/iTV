@@ -69,6 +69,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 //    userQ.include('userFavicon');
     userTQ.first().then(function(user){
 
+        console.dir(user);
         if (user.get('state') == 'tv')
         {
             tvUser = user;
