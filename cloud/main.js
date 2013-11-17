@@ -70,7 +70,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
     userTQ.first().then(function(user){
 
         console.dir(user);
-        if (user.get('state') == 'tv')
+        if (user.get('type') == 'tv')
         {
             tvUser = user;
 
@@ -99,7 +99,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 //    userQ.include('userFavicon');
     userPQ.first().then(function(user){
 
-        if (user.get('state') == 'tv')
+        if (user.get('type') == 'phone')
         {
             phoneUser = user;
 
