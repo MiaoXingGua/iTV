@@ -124,6 +124,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 
 var bindingPhoneToTV = function(tvUser,phoneUser) {
 
+    console.log('开始绑定');
     if (tvUser && phoneUser)
     {
         tvUser.relation('phones').add(phoneUser);
@@ -137,6 +138,7 @@ var bindingPhoneToTV = function(tvUser,phoneUser) {
 
 var unbindingPhoneToTV = function(tvUser,phoneUser) {
 
+    console.log('解除绑定');
     if (tvUser && phoneUser)
     {
         tvUser.relation('phones').remove(phoneUser);
