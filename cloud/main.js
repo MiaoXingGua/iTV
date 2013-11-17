@@ -20,12 +20,21 @@ function newGuid()
     return guid;
 }
 
-//注册
-AV.Cloud.define('register', function(request, response) {
+//TV注册
+AV.Cloud.define('tv_register', function(request, response) {
 
     console.log('注册');
 
-    register(request,response,10,null);
+    register(request,response,10,null,'tv');
+
+});
+
+//Phone注册
+AV.Cloud.define('phone_register', function(request, response) {
+
+    console.log('Phone注册');
+
+    register(request,response,10,null,'phone');
 
 });
 
@@ -53,31 +62,29 @@ var relationOfPhoneTV = function(request, response, isBinding) {
     var tvUser;
     var phoneUser;
 
+
     var userTQ = new AV.Query(User);
     userTQ.equalTo("username", tvUsername);
 //    userQ.include('phone');
 //    userQ.include('userFavicon');
     userTQ.first().then(function(user){
 
-        tvUser = user;
-
-        var result;
-        if (isBinding)
+        if (user.get('state') == 'tv')
         {
-            result = bindingPhoneToTV(tvUser,phoneUser);
+            tvUser = user;
+
+            if (isBinding)
+            {
+                bindingPhoneToTV(response,tvUser,phoneUser);
+            }
+            else
+            {
+                unbindingPhoneToTV(response,tvUser,phoneUser);
+            }
         }
         else
         {
-            result = unbindingPhoneToTV(tvUser,phoneUser);
-        }
-
-        if (result['user'])
-        {
-            response.success(result['user']);
-        }
-        else if (result['error'])
-        {
-            response.error(result['error']);
+            response.error(error+'不是tv的code');
         }
 
     },function(error){
@@ -91,25 +98,22 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 //    userQ.include('userFavicon');
     userPQ.first().then(function(user){
 
-        phoneUser = user;
-
-        var result;
-        if (isBinding)
+        if (user.get('state') == 'tv')
         {
-            result = bindingPhoneToTV(tvUser,phoneUser);
+            phoneUser = user;
+
+            if (isBinding)
+            {
+                bindingPhoneToTV(response,tvUser,phoneUser);
+            }
+            else
+            {
+                unbindingPhoneToTV(response,tvUser,phoneUser);
+            }
         }
         else
         {
-            result = unbindingPhoneToTV(tvUser,phoneUser);
-        }
-
-        if (result['user'])
-        {
-            response.success(result['user']);
-        }
-        else if (result['error'])
-        {
-            response.error(result['error']);
+            response.error(error+'不是phone的code');
         }
 
     },function(error){
@@ -124,14 +128,10 @@ var bindingPhoneToTV = function(tvUser,phoneUser) {
     {
         tvUser.relation('phones').add(phoneUser);
         tvUser.save().then(function(tvUser){
-            return  {'user':tvUser};
+            response.success(tvUser);
         },function(error){
-            return  {'error':error};
+            response.error(error);
         });
-    }
-    else
-    {
-        return NULL;
     }
 }
 
@@ -141,14 +141,10 @@ var unbindingPhoneToTV = function(tvUser,phoneUser) {
     {
         tvUser.relation('phones').remove(phoneUser);
         tvUser.save().then(function(tvUser){
-               return  {'user':tvUser};
+            response.success(tvUser);
         },function(error){
-               return  {'error':error};
+            response.error(error);
         });
-    }
-    else
-    {
-        return NULL;
     }
 }
 
