@@ -238,6 +238,8 @@ var register = function(request,response,count,error,type)
                 user.save().then(function(user){
 
 //                    response.success(user);
+                    console.dir(user);
+                    console.dir({"user":user});
                     return {"user":user};
 
                 },function(error) {
