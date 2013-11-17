@@ -1,8 +1,12 @@
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
+
+var password = 'qweqwe123';
+
 AV.Cloud.define("hello", function(request, response) {
     response.success("Hello world!");
 });
+
 //生成guid
 function newGuid()
 {
