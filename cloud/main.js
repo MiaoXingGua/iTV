@@ -186,19 +186,19 @@ var register = function(request,response,count,error,type)
 //                var userInfo = new UserInfo();
 //                user.set('userInfo', userInfo);
 
-                user.save().then(function(user){
+//                user.save().then(function(user){
 
 //                    response.success(user);
 //                    console.dir(user);
 //                    return {"user":user};
                     response.success(user);
 
-                },function(error) {
-
+//                },function(error) {
+//
+////                    response.error(error);
 //                    response.error(error);
-                    response.error(error);
-//                    return {"error":error};
-                });
+////                    return {"error":error};
+////                });
             },
             error: function(user, error) {
 
