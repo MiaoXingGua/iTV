@@ -46,7 +46,7 @@ AV.Cloud.define('phone_binding', function(request, response) {
 });
 
 //解除绑定方法
-AV.Cloud.define('phone_binding', function(request, response) {
+AV.Cloud.define('phone_unbinding', function(request, response) {
 
     relationOfPhoneTV(request, response, 0);
 
@@ -147,8 +147,6 @@ var unbindingPhoneToTV = function(tvUser,phoneUser) {
         });
     }
 }
-
-
 
 var register = function(request,response,count,error,type)
 {
