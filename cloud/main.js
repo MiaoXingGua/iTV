@@ -20,62 +20,13 @@ function newGuid()
     return guid;
 }
 
-//TV注册
-AV.Cloud.define('tv_register', function(request, response) {
+//注册
+AV.Cloud.define('register', function(request, response) {
 
-    console.log('TV注册');
+    console.log('注册');
 
-    var result = register(request,response,10,null,"tv");
-    console.dir(result);
-    var user = result["user"];
-    console.dir(user);
-    if (user)
-    {
-        response.success(user);
-    }
-    else
-    {
-        response.error(result["error"]);
-    }
+    register(request,response,10,null);
 
-});
-
-//Phone注册(第一次绑定设备)
-AV.Cloud.define('phone_register', function(request, response) {
-
-    console.log('Phone注册');
-
-    var tvUsername = request.params.tvCode;
-    var userPhone;
-
-    var userQ = new AV.Query(User);
-    userQ.equalTo("username", tvUsername);
-//    userQ.include('userCount');
-//    userQ.include('userFavicon');
-    userQ.first().then(function(tvUser){
-
-        if (tvUser)
-        {
-            var result = register(request,response,10,null,"phone");
-            phoneUser = result["user"];
-            if (!phoneUser)
-            {
-                response.error(result["error"]);
-            }
-//            AV.Object.createWithoutData("_User", userPhone.id);
-            tvUser.relation('phones').add(phoneUser);
-            return tvUser.save();
-
-        }
-
-        }).then(function(user){
-
-            response.success(userPhone);
-
-         },function(error){
-
-            response.error(error);
-        });
 });
 
 //绑定设备
