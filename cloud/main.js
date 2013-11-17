@@ -26,6 +26,7 @@ AV.Cloud.define('tv_register', function(request, response) {
     console.log('TV注册');
 
     var result = register(request,response,10,null,"tv");
+    console.dir(result);
     var user = result["user"];
     console.dir(user);
     if (user)
@@ -241,7 +242,7 @@ var register = function(request,response,count,error,type)
                 user.save().then(function(user){
 
 //                    response.success(user);
-                    console.dir(user);
+//                    console.dir(user);
 
                     return {"user":user};
 
