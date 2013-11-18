@@ -83,14 +83,15 @@ var register2 = function(request,response,count,error,type)
                 },function(error) {
 
                     console.log('注册6');
+                    console.dir(error);
                     response.error(error);
                 });
 
             },
             error: function(user, error) {
                 console.log('注册5');
-//                        console.log(error);
-//                register(response,--count,error);
+                console.dir(error);
+                register(response,--count,error);
             }
         });
 //        });
