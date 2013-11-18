@@ -376,16 +376,6 @@ var cloopen2avos = function(request, response, user, xmppInfo)
 
     if (subAccountSid && subToken && voipAccount && voipPwd)
     {
-//        var userInfo = new UserInfo();
-
-//        var userId = AV.Object.createWithoutData("_User", user.id);
-//        var userInfo = user.get('userInfo');
-//        userInfo.set("user", userId);
-//        userInfo.set("subAccountSid", subAccountSid);
-//        userInfo.set("subToken", subToken);
-//        userInfo.set("voipAccount", voipAccount);
-//        userInfo.set("voipPwd", voipPwd);
-
         user.set("subAccountSid", subAccountSid);
         user.set("subToken", subToken);
         user.set("voipAccount", voipAccount);
