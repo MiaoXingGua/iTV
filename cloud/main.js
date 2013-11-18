@@ -25,7 +25,8 @@ AV.Cloud.define('tv_register', function(request, response) {
 
     console.log('注册');
 
-    register(request,response,10,null,'tv');
+//    register(request,response,10,null,'tv');
+    register2(request,response,10,null,'tv');
 
 });
 
@@ -34,20 +35,12 @@ AV.Cloud.define('phone_register', function(request, response) {
 
     console.log('Phone注册');
 
-    register(request,response,10,null,'phone');
-
+//    register(request,response,10,null,'phone');
+    register2(request,response,10,null,'phone');
 });
 
-//全新注册
-AV.Cloud.define('register', function(request, response) {
 
-    console.log('注册');
-
-    register2(request,response,10,null);
-
-});
-
-var register2 = function(request,response,count,error)
+var register2 = function(request,response,count,error,type)
 {
     if (count<=0) response.error(error);
 
@@ -69,7 +62,8 @@ var register2 = function(request,response,count,error)
         var user = new AV.User();
         user.set("username",username);
         user.set("password", password);
-        user.set("email", email);
+//        user.set("email", email);
+        user.set('type', type);
 
         user.signUp(null, {
             success: function(user) {
