@@ -350,12 +350,11 @@ var cloopen2avos = function(request, response, user, xmppInfo)
         user.set("subToken", subToken);
         user.set("voipAccount", voipAccount);
         user.set("voipPwd", voipPwd);
-        user.save().then(function(userInfo) {
+        user.save().then(function(user) {
 
             var dict = {'guid':user.get('username'),'password':password,'subAccountSid':subAccountSid,'subToken':subToken,'voipAccount':voipAccount,'voipPwd':voipPwd};
 
-//                console.dir(dict);
-//                console.log('dict2='+dict.toString());
+            console.dir(dict);
 
             response.success(dict);
 
