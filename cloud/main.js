@@ -53,7 +53,7 @@ var register2 = function(request,response,count,error,type)
         username = newGuid();
     }
 
-    var email = username + "@iTv.com";
+    var email = username + "@" + username + ".com";
 
     if (username && password && email)
     {
@@ -93,7 +93,7 @@ var register2 = function(request,response,count,error,type)
             error: function(user, error) {
                 console.log('注册5');
                 console.dir(error);
-                register(response,--count,error);
+                register2(response,--count,error);
             }
         });
 //        });
@@ -215,65 +215,65 @@ var unbindingPhoneToTV = function(response,tvUser,phoneUser) {
     }
 }
 
-var register = function(request,response,count,error,type)
-{
-    if (count<=0) response.error(error);
-
-    console.log('注册');
-
-    var username = request.params.guid;
-
-    if (!username)
-    {
-        username = newGuid();
-    }
-
-    var email = username + "@qq.com";
-
-    if (username && password && email)
-    {
-        //创建用户关系
-//        var userRelation = new UserRelation();
-//        userRelation.save().then(function(userRelation){
-
-        var user = new AV.User();
-        user.set("username",username);
-        user.set("password", password);
-        user.set("email", email);
-        user.set('type',type);
-
-        user.signUp(null, {
-            success: function(user) {
-
-//                var userRelation = new UserRelation();
-//                user.set('userRelation', userRelation);
+//var register = function(request,response,count,error,type)
+//{
+//    if (count<=0) response.error(error);
 //
-//                var userInfo = new UserInfo();
-//                user.set('userInfo', userInfo);
-
-//                user.save().then(function(user){
-
+//    console.log('注册');
+//
+//    var username = request.params.guid;
+//
+//    if (!username)
+//    {
+//        username = newGuid();
+//    }
+//
+//    var email = username + "@qq.com";
+//
+//    if (username && password && email)
+//    {
+//        //创建用户关系
+////        var userRelation = new UserRelation();
+////        userRelation.save().then(function(userRelation){
+//
+//        var user = new AV.User();
+//        user.set("username",username);
+//        user.set("password", password);
+//        user.set("email", email);
+//        user.set('type',type);
+//
+//        user.signUp(null, {
+//            success: function(user) {
+//
+////                var userRelation = new UserRelation();
+////                user.set('userRelation', userRelation);
+////
+////                var userInfo = new UserInfo();
+////                user.set('userInfo', userInfo);
+//
+////                user.save().then(function(user){
+//
+////                    response.success(user);
+////                    console.dir(user);
+////                    return {"user":user};
 //                    response.success(user);
-//                    console.dir(user);
-//                    return {"user":user};
-                    response.success(user);
-
-//                },function(error) {
 //
+////                },function(error) {
+////
+//////                    response.error(error);
 ////                    response.error(error);
-//                    response.error(error);
-////                    return {"error":error};
-////                });
-            },
-            error: function(user, error) {
-
-//                return {"error":error};
-                response.error(error);
-            }
-
-        });
-    }
-}
+//////                    return {"error":error};
+//////                });
+//            },
+//            error: function(user, error) {
+//
+////                return {"error":error};
+//                response.error(error);
+//            }
+//
+//        });
+//    }
+//}
 
 //云通讯
 var crypto = require('crypto');
