@@ -69,11 +69,11 @@ var register2 = function(request,response,count,error,type)
             success: function(user) {
                 console.log('注册3');
 
-                var userRelation = new UserRelation();
-                user.set('userRelation', userRelation);
+//                var userRelation = new UserRelation();
+//                user.set('userRelation', userRelation);
 
-                var userInfo = new UserInfo();
-                user.set('userInfo', userInfo);
+//                var userInfo = new UserInfo();
+//                user.set('userInfo', userInfo);
 
                 user.save().then(function(user){
                     console.log('headView');
