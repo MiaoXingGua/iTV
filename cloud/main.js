@@ -46,6 +46,8 @@ var register2 = function(request,response,count,error,type)
 
     var username = request.params.guid;
 
+    console.log(username);
+
     if (!username)
     {
         username = newGuid();
@@ -62,7 +64,7 @@ var register2 = function(request,response,count,error,type)
         var user = new AV.User();
         user.set("username",username);
         user.set("password", password);
-//        user.set("email", email);
+        user.set("email", email);
         user.set('type', type);
 
         user.signUp(null, {
