@@ -53,7 +53,7 @@ var register2 = function(request,response,count,error,type)
         username = newGuid();
     }
 
-    var email = username + "@qq.com";
+    var email = username + "@iTv.com";
 
     if (username && password && email)
     {
