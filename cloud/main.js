@@ -23,7 +23,7 @@ function newGuid()
 //TV注册
 AV.Cloud.define('tv_register', function(request, response) {
 
-    console.log('注册');
+    console.log('TV注册');
 
 //    register(request,response,10,null,'tv');
     register2(request,response,10,null,'tv');
@@ -77,17 +77,17 @@ var register2 = function(request,response,count,error,type)
 //                var userInfo = new UserInfo();
 //                user.set('userInfo', userInfo);
 
-                user.save().then(function(user){
-                    console.log('headView');
+//                user.save().then(function(user){
+//                    console.log('headView');
                     //注册云通信
                     cloopenSignUp(request, response, user);
 
-                },function(error) {
-
-                    console.log('注册6');
-                    console.dir(error);
-                    response.error(error);
-                });
+//                },function(error) {
+//
+//                    console.log('注册6');
+//                    console.dir(error);
+//                    response.error(error);
+//                });
 
             },
             error: function(user, error) {
