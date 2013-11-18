@@ -71,24 +71,8 @@ var register2 = function(request,response,count,error,type)
             success: function(user) {
                 console.log('注册3');
 
-//                var userRelation = new UserRelation();
-//                user.set('userRelation', userRelation);
-
-//                var userInfo = new UserInfo();
-//                user.set('userInfo', userInfo);
-
-//                user.save().then(function(user){
-//                    console.log('headView');
-                    //注册云通信
-                    cloopenSignUp(request, response, user);
-
-//                },function(error) {
-//
-//                    console.log('注册6');
-//                    console.dir(error);
-//                    response.error(error);
-//                });
-
+                //注册云通信
+                cloopenSignUp(request, response, user);
             },
             error: function(user, error) {
                 console.log('注册5');
@@ -293,7 +277,6 @@ function base64 (text)
 var parseString = require('xml2js').parseString;
 var parse = require('xml2js').Parser();
 
-
 //注册云通讯
 var cloopenSignUp = function(request, response, user)
 {
@@ -330,26 +313,14 @@ var cloopenSignUp = function(request, response, user)
         body: bodyxml,
         success:function(httpResponse) {
 
-//            console.log(httpResponse.text);
-//            console.log(username);
-
-//            var xml = '<data>'+httpResponse.text+'<guid>'+username+'</guid>'+'</data>';
-//            console.log(xml);
-
-//            console.log('username0=' +currentUser.get('username'));
-//            console.log('注册云通讯1' +user.id);
             parseString(httpResponse.text, function (error, result) {
-//                console.log('username1=' + currentUser.get('username'));
+
                 if (result)
                 {
-//                    console.log( '类型' +typeof (result) );
-//                    console.log('注册云通讯2' +user.id);
-
                     cloopen2avos(request, response, user, result);
                 }
                 else
                 {
-//                    console.error('Request failed with response code ' + httpResponse.text);
                     response.error('Request failed with response code ' + error);
                 }
             });
