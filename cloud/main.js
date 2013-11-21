@@ -109,14 +109,13 @@ var relationOfPhoneTV = function(request, response, isBinding) {
     var tvUser;
     var phoneUser;
 
-
     var userTQ = new AV.Query(User);
     userTQ.equalTo("username", tvUsername);
 //    userQ.include('phone');
 //    userQ.include('userFavicon');
     userTQ.first({
         success: function(user) {
-            console.dir(user);
+
             if (user.get('type') == 'tv')
             {
                 tvUser = user;
@@ -147,6 +146,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 //    userQ.include('userFavicon');
     userPQ.first({
         success: function(user) {
+            console.dir(user);
             if (user.get('type') == 'phone')
             {
                 phoneUser = user;
