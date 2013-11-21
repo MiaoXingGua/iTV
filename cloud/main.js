@@ -173,9 +173,10 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 
 var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
-    console.log('开始绑定');
+
     if (tvUser && phoneUser)
     {
+        console.log('开始绑定');
         tvUser.relation('phones').add(phoneUser);
         tvUser.save().then(function(tvUser){
             console.log('绑定成功');
