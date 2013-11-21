@@ -53,7 +53,7 @@ var register2 = function(request,response,count,error,type)
         username = newGuid();
     }
 
-    var email = username + "@" + username + ".com";
+    var email = username + "@" + "qq" + ".com";
 
     if (username && password && email)
     {
@@ -178,8 +178,10 @@ var bindingPhoneToTV = function(response,tvUser,phoneUser) {
     {
         tvUser.relation('phones').add(phoneUser);
         tvUser.save().then(function(tvUser){
+            console.log('绑定成功');
             response.success(tvUser);
         },function(error){
+            console.log('绑定失败');
             response.error(error);
         });
     }
