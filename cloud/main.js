@@ -131,7 +131,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
             }
             else
             {
-                response.error(error+'不是tv的code');
+                response.error('不是tv的code');
             }
 
         },
@@ -162,7 +162,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
             }
             else
             {
-                response.error(error+'不是phone的code');
+                response.error('不是phone的code');
             }
         },
         error: function(error) {
