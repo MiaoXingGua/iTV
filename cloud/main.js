@@ -179,8 +179,16 @@ var bindingPhoneToTV = function(response,tvUser,phoneUser) {
         console.log('开始绑定');
         tvUser.relation('phones').add(phoneUser);
         tvUser.save().then(function(tvUser){
+
+            tvUserId = AV.Object.createWithoutData("_User", tvUser.id);
+            phoneUser.set('tv',tvUserId);
+            return phoneUser.save();
+
+        }).then(function(phoneUser){
+
             console.log('绑定成功');
-            response.success(tvUser);
+            response.success(phoneUser);
+
         },function(error){
             console.log('绑定失败');
             response.error(error);
@@ -195,7 +203,14 @@ var unbindingPhoneToTV = function(response,tvUser,phoneUser) {
     {
         tvUser.relation('phones').remove(phoneUser);
         tvUser.save().then(function(tvUser){
-            response.success(tvUser);
+
+            phoneUser.set('tv',Null);
+            return phoneUser.save();
+
+        }).then(function(phoneUser){
+
+                console.log('绑定成功');
+                response.success(phoneUser);
         },function(error){
             response.error(error);
         });
