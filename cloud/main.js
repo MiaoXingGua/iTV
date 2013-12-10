@@ -303,26 +303,32 @@ var cloopenSignUp = function(request, response, user)
 
     var timeStr = moment().format('YYYYMMDDHHmmss');
 //    console.log('timestr:' + timeStr);
+                                             //
+    //aaf98f894032b237014047963bb9009d
+    var appid = 'aaf98fda42d6912d0142dbdf2d480081';
+    var authtoken = '8705aa2c6011420b939146447c6f3dc8';
 
-    var authorizationStr = 'aaf98f894032b237014047963bb9009d'+':'+timeStr;
+    var authorizationStr = appid+':'+timeStr;
 //    console.log('authorizationStr:' + authorizationStr);
 
     var authorization64 = base64(authorizationStr);
 //    console.log('authorization64:' + authorization64);
 
-    var sigstr = 'aaf98f894032b237014047963bb9009d'+'bbc381b9a024443da462307cec93ce0b'+timeStr;
+    var sigstr = appid+authtoken+timeStr;
+
 //    console.log('sigstr:' + sigstr);
 
     var sig = md5(sigstr);
 //    console.log('sig:' + sig    );
 
-    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>aaf98f894032b2370140482ac6dc00a8</appId><friendlyName>' + user.get('username') + '</friendlyName><accountSid>aaf98f894032b237014047963bb9009d</accountSid></SubAccount>';
+    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>'+appid+'</appId><friendlyName>' + user.get('username') + '</friendlyName><accountSid>'+appid+'</accountSid></SubAccount>';
 
 //    console.log('body:' + bodyxml);
 
     AV.Cloud.httpRequest({
         method: 'POST',
-        url: 'https://sandboxapp.cloopen.com:8883/2013-03-22/Accounts/aaf98f894032b237014047963bb9009d/SubAccounts?sig='+sig.toUpperCase(),
+//        secureProtocol : 'SSLv2_method',
+        url: 'https://app.cloopen.com:8883/2013-03-22/Accounts/'+appid+'/SubAccounts?sig='+sig.toUpperCase(),
         headers: {
             'Content-Type': 'application/xml;charset=utf-8',
             'Accept': 'application/xml',
@@ -346,8 +352,8 @@ var cloopenSignUp = function(request, response, user)
         },
         error:function(httpResponse) {
 
-            console.error('Request failed with response code ' + httpResponse.text);
-            response.error('Request failed with response code ' + httpResponse.status);
+            console.error('Request failed with response code : ' + httpResponse.text);
+            response.error('Request failed with response code : ' + httpResponse.status);
         }
     });
 }
