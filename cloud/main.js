@@ -26,7 +26,7 @@ AV.Cloud.define('tv_register', function(request, response) {
     console.log('TV注册');
 
 //    register(request,response,10,null,'tv');
-    register1(request,response,10,null,'tv');
+    register2(request,response,10,null,'tv');
 
 });
 
@@ -36,7 +36,7 @@ AV.Cloud.define('phone_register', function(request, response) {
     console.log('Phone注册');
 
 //    register(request,response,10,null,'phone');
-    register1(request,response,10,null,'phone');
+    register2(request,response,10,null,'phone');
 });
 
 var register1 = function(request,response,count,error,type)
@@ -59,10 +59,10 @@ var register1 = function(request,response,count,error,type)
     var user = new AV.User();
     user.set("username",username);
     user.set("password", username);
-    user.set("subAccountSid", subAccountSid);
-    user.set("subToken", subToken);
-    user.set("voipAccount", voipAccount);
-    user.set("voipPwd", voipPwd);
+//    user.set("subAccountSid", subAccountSid);
+//    user.set("subToken", subToken);
+//    user.set("voipAccount", voipAccount);
+//    user.set("voipPwd", voipPwd);
     user.set('type', type);
 
     user.signUp(null, {
@@ -102,7 +102,7 @@ var register2 = function(request,response,count,error,type)
 
     var email = username + "@" + "qq" + ".com";
 
-    if (username && password && email)
+    if (username && email)
     {
         //创建用户关系
 //        var userRelation = new UserRelation();
@@ -110,7 +110,7 @@ var register2 = function(request,response,count,error,type)
 
         var user = new AV.User();
         user.set("username",username);
-        user.set("password", password);
+        user.set("password", username);
         user.set("email", email);
         user.set('type', type);
 
@@ -351,7 +351,7 @@ AV.Cloud.define('cloopenSignUp', function(request, response) {
 });
 
 //注册云通讯
-var cloopenSignUp = function(request, response, str)
+var cloopenSignUp = function(request, response, user)
 {
     console.log('注册云通讯');
 //    console.log('注册云通讯' +user.id);
@@ -384,7 +384,7 @@ var cloopenSignUp = function(request, response, str)
     // 生成header
 
     // 生成body
-    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>' + appid + '</appId><friendlyName>' + str + '</friendlyName><accountSid>'+accountSid+'</accountSid></SubAccount>';
+    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>' + appid + '</appId><friendlyName>' + user.email + '</friendlyName><accountSid>'+accountSid+'</accountSid></SubAccount>';
 
 //    console.log('body:' + bodyxml);
 
@@ -401,24 +401,19 @@ var cloopenSignUp = function(request, response, str)
         body: bodyxml,
         success:function(httpResponse) {
 
-            response.success(httpResponse.buffer.toString());
+//            response.success(httpResponse);
             console.log('成功了！！！');
-//            parseString(httpResponse.text, function (error, result) {
-//
-//
-//
-//                if (result)
-//                {
-//                    cloopen2avos(request, response, user, result);
-//                }
-//                else
-//                {
-//                    response.error('Request failed with response code ' + error);
-//                }
-//            });
+            parseString(httpResponse.buffer.toString(), function (error, result) {
 
-
-
+                if (result)
+                {
+                    cloopen2avos(request, response, user, result);
+                }
+                else
+                {
+                    response.error('Request failed with response code ' + error);
+                }
+            });
         },
         error:function(httpResponse) {
 
