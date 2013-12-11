@@ -431,9 +431,6 @@ var cloopenSignUp = function(request, response, user)
 
 var cloopen2avos = function(request, response, user, xmppInfo)
 {
-
-
-
     var subAccountSid = xmppInfo.Response.SubAccount[0].subAccountSid[0];
     var subToken = xmppInfo.Response.SubAccount[0].subToken[0];
     var voipAccount = xmppInfo.Response.SubAccount[0].voipAccount[0];
@@ -452,7 +449,7 @@ var cloopen2avos = function(request, response, user, xmppInfo)
         user.set("voipPwd", voipPwd);
         user.save().then(function(user) {
 
-            var dict = {'guid':user.get('username'),'password':password,'subAccountSid':subAccountSid,'subToken':subToken,'voipAccount':voipAccount,'voipPwd':voipPwd};
+            var dict = {'guid':user.get('username'),'password':user.get('username'),'subAccountSid':subAccountSid,'subToken':subToken,'voipAccount':voipAccount,'voipPwd':voipPwd};
 
             console.dir(dict);
 
