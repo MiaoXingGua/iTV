@@ -356,7 +356,7 @@ AV.Cloud.define('cloopenSignUp', function(request, response) {
 var cloopenSignUp = function(request, response, user)
 {
     console.log('注册云通讯');
-    console.log('注册云通讯' +user);
+    console.dir(user);
 
     var timeStr = moment().format('YYYYMMDDHHmmss');
 //    console.log('timestr:' + timeStr);
@@ -404,7 +404,7 @@ var cloopenSignUp = function(request, response, user)
 
 //            console.dir(httpResponse.buffer);
 //            console.log(httpResponse.buffer.toString());
-            console.log(httpResponse.buffer.toString());
+//            console.log(httpResponse.buffer.toString());
             console.log('成功了！！！');
             parseString(httpResponse.buffer.toString(), function (error, result) {
 
@@ -438,10 +438,10 @@ var cloopen2avos = function(request, response, user, xmppInfo)
     var voipAccount = xmppInfo.Response.SubAccount[0].voipAccount[0];
     var voipPwd = xmppInfo.Response.SubAccount[0].voipPwd[0];
 
-//    console.log('subAccountSid' + subAccountSid);
-//    console.log('subToken' + subToken);
-//    console.log('voipAccount' + voipAccount);
-//    console.log('voipPwd' + subAccountSid);
+    console.log('subAccountSid' + subAccountSid);
+    console.log('subToken' + subToken);
+    console.log('voipAccount' + voipAccount);
+    console.log('voipPwd' + subAccountSid);
 
     if (subAccountSid && subToken && voipAccount && voipPwd)
     {
