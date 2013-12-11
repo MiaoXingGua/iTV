@@ -344,6 +344,13 @@ function base64 (text)
 var parseString = require('xml2js').parseString;
 var parse = require('xml2js').Parser();
 
+
+AV.Cloud.define('cloopenSignUp', function(request, response) {
+
+    cloopenSignUp({'email':'asdasd@uiert.com'});
+
+});
+
 //注册云通讯
 var cloopenSignUp = function(request, response, user)
 {
