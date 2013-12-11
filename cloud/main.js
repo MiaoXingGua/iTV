@@ -431,12 +431,17 @@ var cloopenSignUp = function(request, response, user)
 var cloopen2avos = function(request, response, user, xmppInfo)
 {
 
-    console.dir(xmppInfo);
+
 
     var subAccountSid = xmppInfo.Response.SubAccount[0].subAccountSid[0];
     var subToken = xmppInfo.Response.SubAccount[0].subToken[0];
     var voipAccount = xmppInfo.Response.SubAccount[0].voipAccount[0];
     var voipPwd = xmppInfo.Response.SubAccount[0].voipPwd[0];
+
+    console.log('subAccountSid' + subAccountSid);
+    console.log('subToken' + subToken);
+    console.log('voipAccount' + voipAccount);
+    console.log('voipPwd' + subAccountSid);
 
     if (subAccountSid && subToken && voipAccount && voipPwd)
     {
