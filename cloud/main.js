@@ -401,7 +401,7 @@ var cloopenSignUp = function(request, response, str)
         body: bodyxml,
         success:function(httpResponse) {
 
-            response.success(httpResponse);
+            response.success(httpResponse.buffer.toString());
             console.log('成功了！！！');
 //            parseString(httpResponse.text, function (error, result) {
 //
