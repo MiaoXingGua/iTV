@@ -356,7 +356,7 @@ AV.Cloud.define('cloopenSignUp', function(request, response) {
 var cloopenSignUp = function(request, response, user)
 {
     console.log('注册云通讯');
-//    console.log('注册云通讯' +user.id);
+    console.log('注册云通讯' +user);
 
     var timeStr = moment().format('YYYYMMDDHHmmss');
 //    console.log('timestr:' + timeStr);
