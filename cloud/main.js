@@ -403,6 +403,7 @@ var cloopenSignUp = function(request, response, str)
 
 //            parseString(httpResponse.text, function (error, result) {
 //
+//
 //                if (result)
 //                {
 //                    cloopen2avos(request, response, user, result);
@@ -412,7 +413,7 @@ var cloopenSignUp = function(request, response, str)
 //                    response.error('Request failed with response code ' + error);
 //                }
 //            });
-            console.log('成功');
+            console.log(httpResponse.text);
             response.success();
 
         },
