@@ -347,7 +347,7 @@ var parse = require('xml2js').Parser();
 
 AV.Cloud.define('cloopenSignUp', function(request, response) {
 
-    cloopenSignUp({'email':'asdasd@uiert.com'});
+    cloopenSignUp('asdguaygg@ss.com');
 
 });
 
@@ -382,9 +382,9 @@ var cloopenSignUp = function(request, response, user)
 //    console.log(authorization64);
 
     // 生成header
-                     console.log(user.email);
+
     // 生成body
-    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>' + appid + '</appId><friendlyName>' + user.email + '</friendlyName><accountSid>'+accountSid+'</accountSid></SubAccount>';
+    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>' + appid + '</appId><friendlyName>' + user + '</friendlyName><accountSid>'+accountSid+'</accountSid></SubAccount>';
 
 //    console.log('body:' + bodyxml);
 
@@ -408,14 +408,14 @@ var cloopenSignUp = function(request, response, user)
             parseString(httpResponse.buffer.toString(), function (error, result) {
 
                 console.dir(result);
-                if (result)
-                {
-                    cloopen2avos(request, response, user, result);
-                }
-                else
-                {
-                    response.error('Request failed with response code ' + error);
-                }
+//                if (result)
+//                {
+//                    cloopen2avos(request, response, user, result);
+//                }
+//                else
+//                {
+//                    response.error('Request failed with response code ' + error);
+//                }
             });
         },
         error:function(httpResponse) {
