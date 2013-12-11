@@ -404,9 +404,9 @@ var cloopenSignUp = function(request, response, user)
 
 //            console.dir(httpResponse.buffer);
 //            console.log(httpResponse.buffer.toString());
-            console.log(httpResponse.text);
+            console.log(httpResponse.buffer.toString());
             console.log('成功了！！！');
-            parseString(httpResponse.text, function (error, result) {
+            parseString(httpResponse.buffer.toString(), function (error, result) {
 
                 console.dir(result);
                 if (result)
@@ -431,7 +431,7 @@ var cloopenSignUp = function(request, response, user)
 var cloopen2avos = function(request, response, user, xmppInfo)
 {
 
-    console.log(xmppInfo);
+    console.dir(xmppInfo);
 
     var subAccountSid = xmppInfo.Response.SubAccount[0].subAccountSid[0];
     var subToken = xmppInfo.Response.SubAccount[0].subToken[0];
