@@ -385,7 +385,7 @@ var cloopenSignUp = function(request, response, user)
     // 生成header
 
     // 生成body
-    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>' + appid + '</appId><friendlyName>' + user + '</friendlyName><accountSid>'+accountSid+'</accountSid></SubAccount>';
+    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>' + appid + '</appId><friendlyName>' + user.email + '</friendlyName><accountSid>'+accountSid+'</accountSid></SubAccount>';
 
 //    console.log('body:' + bodyxml);
 
@@ -438,10 +438,10 @@ var cloopen2avos = function(request, response, user, xmppInfo)
     var voipAccount = xmppInfo.Response.SubAccount[0].voipAccount[0];
     var voipPwd = xmppInfo.Response.SubAccount[0].voipPwd[0];
 
-    console.log('subAccountSid' + subAccountSid);
-    console.log('subToken' + subToken);
-    console.log('voipAccount' + voipAccount);
-    console.log('voipPwd' + subAccountSid);
+//    console.log('subAccountSid' + subAccountSid);
+//    console.log('subToken' + subToken);
+//    console.log('voipAccount' + voipAccount);
+//    console.log('voipPwd' + subAccountSid);
 
     if (subAccountSid && subToken && voipAccount && voipPwd)
     {
