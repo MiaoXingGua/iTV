@@ -402,21 +402,21 @@ var cloopenSignUp = function(request, response, user)
         body: bodyxml,
         success:function(httpResponse) {
 
-            console.dir(httpResponse.buffer);
-            console.log(httpResponse.buffer.toString());
+//            console.dir(httpResponse.buffer);
+//            console.log(httpResponse.buffer.toString());
             console.log(httpResponse.text);
             console.log('成功了！！！');
-            parseString(httpResponse.buffer.toString(), function (error, result) {
+            parseString(httpResponse.text, function (error, result) {
 
                 console.dir(result);
-//                if (result)
-//                {
-//                    cloopen2avos(request, response, user, result);
-//                }
-//                else
-//                {
-//                    response.error('Request failed with response code ' + error);
-//                }
+                if (result)
+                {
+                    cloopen2avos(request, response, user, result);
+                }
+                else
+                {
+                    response.error('Request failed with response code ' + error);
+                }
             });
         },
         error:function(httpResponse) {
