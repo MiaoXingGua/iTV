@@ -401,26 +401,28 @@ var cloopenSignUp = function(request, response, str)
         body: bodyxml,
         success:function(httpResponse) {
 
-            parseString(httpResponse.text, function (error, result) {
+            response.success(httpResponse);
+            console.log('成功了！！！');
+//            parseString(httpResponse.text, function (error, result) {
+//
+//
+//
+//                if (result)
+//                {
+//                    cloopen2avos(request, response, user, result);
+//                }
+//                else
+//                {
+//                    response.error('Request failed with response code ' + error);
+//                }
+//            });
 
-                response.success(result);
-
-                if (result)
-                {
-                    cloopen2avos(request, response, user, result);
-                }
-                else
-                {
-                    response.error('Request failed with response code ' + error);
-                }
-            });
-            console.log(httpResponse.text);
 
 
         },
         error:function(httpResponse) {
 
-            console.log('失败');
+            console.log('失败了！！！');
             console.error('Request failed with response code : ' + httpResponse.text);
             response.error('Request failed with response code : ' + httpResponse.status);
         }
