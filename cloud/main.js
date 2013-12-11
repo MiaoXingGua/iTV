@@ -371,7 +371,7 @@ var cloopenSignUp = function(request, response, user)
     //1. sig参数 :主账户id + 主账户授权令牌 + 时间戳
     var sigstr = accountSid + authToken + timeStr;
     var sig = md5(sigstr);
-    console.log(timeStr);
+//    console.log(timeStr);
 
     //2.生成请求url : https:// 服务器地址 / REST API版本 / Accounts / 主账户id / SubAccounts?sig= + sig
     var url = 'https://app.cloopen.com:8883/2013-03-22/Accounts/'+accountSid+'/SubAccounts?sig='+sig.toUpperCase();
@@ -379,7 +379,7 @@ var cloopenSignUp = function(request, response, user)
     // 3.生成授权 : 主账户Id + 英文冒号 + 时间戳。
     var authorizationStr = accountSid + ':' + timeStr;
     var authorization64 = base64(authorizationStr);
-    console.log(authorization64);
+//    console.log(authorization64);
 
     // 生成header
 
@@ -401,7 +401,9 @@ var cloopenSignUp = function(request, response, user)
         body: bodyxml,
         success:function(httpResponse) {
 
-//            response.success(httpResponse);
+            console.dir(httpResponse.buffer);
+            console.log(httpResponse.buffer.toString());
+            console.log(httpResponse.text);
             console.log('成功了！！！');
             parseString(httpResponse.buffer.toString(), function (error, result) {
 
