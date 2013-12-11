@@ -390,7 +390,8 @@ var cloopenSignUp = function(request, response, str)
 
     AV.Cloud.httpRequest({
         method: 'POST',
-        secureProtocol : 'SSLv2_method',
+        secureProtocol : 'TLSv1_method',
+        rejectUnhauthorized : false,
         url: url,
         headers: {
             'Content-Type' : 'application/xml;charset=utf-8',
