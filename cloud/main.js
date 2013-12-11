@@ -348,7 +348,7 @@ var parse = require('xml2js').Parser();
 AV.Cloud.define('cloopenSignUp', function(request, response) {
 
 
-    cloopenSignUp(request.params.email);
+    cloopenSignUp(request,response,request.params.email);
 
 });
 
