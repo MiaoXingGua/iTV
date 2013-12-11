@@ -401,20 +401,21 @@ var cloopenSignUp = function(request, response, str)
         body: bodyxml,
         success:function(httpResponse) {
 
-//            parseString(httpResponse.text, function (error, result) {
-//
-//
-//                if (result)
-//                {
-//                    cloopen2avos(request, response, user, result);
-//                }
-//                else
-//                {
-//                    response.error('Request failed with response code ' + error);
-//                }
-//            });
+            parseString(httpResponse.text, function (error, result) {
+
+                response.success(result);
+
+                if (result)
+                {
+                    cloopen2avos(request, response, user, result);
+                }
+                else
+                {
+                    response.error('Request failed with response code ' + error);
+                }
+            });
             console.log(httpResponse.text);
-            response.success();
+
 
         },
         error:function(httpResponse) {
