@@ -398,7 +398,7 @@ var cloopenSignUp = function(request, response, user)
             console.log('成功了！！！');
             parseString(httpResponse.buffer.toString(), function (error, result) {
 
-                console.dic(result);
+                console.dir(result);
                 if (result)
                 {
                     cloopen2avos(request, response, user, result);
