@@ -346,7 +346,7 @@ var parse = require('xml2js').Parser();
 //TV注册
 AV.Cloud.define('cloopenSignUp', function(request, response) {
 
-    cloopenSignUp(request,response,'17a2836s@qq.com');
+    cloopenSignUp(request,response,'7a2qwerra836s@qq.com');
 
 });
 
