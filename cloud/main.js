@@ -26,7 +26,7 @@ AV.Cloud.define('tv_register', function(request, response) {
     console.log('TV注册');
 
 //    register(request,response,10,null,'tv');
-    register2(request,response,10,null,'tv');
+    register1(request,response,10,null,'tv');
 
 });
 
@@ -36,9 +36,56 @@ AV.Cloud.define('phone_register', function(request, response) {
     console.log('Phone注册');
 
 //    register(request,response,10,null,'phone');
-    register2(request,response,10,null,'phone');
+    register1(request,response,10,null,'phone');
 });
 
+var register1 = function(request,response,count,error,type)
+{
+    if (count<=0) response.error(error);
+
+    var username = request.params.guid;
+    var subAccountSid = request.params.subAccountSid;
+    var subToken = request.params.subToken;
+    var voipAccount = request.params.voipAccount;
+    var voipPwd = request.params.voipPwd;
+
+    console.log(username);
+
+    if (!username)
+    {
+        username = newGuid();
+    }
+
+    var user = new AV.User();
+    user.set("username",username);
+    user.set("password", username);
+    user.set("subAccountSid", subAccountSid);
+    user.set("subToken", subToken);
+    user.set("voipAccount", voipAccount);
+    user.set("voipPwd", voipPwd);
+    user.set('type', type);
+
+    user.signUp(null, {
+        success: function(user) {
+            console.log('注册3');
+
+            var dict = {'guid':user.get('username')};
+
+            console.dir(dict);
+
+            response.success(dict);
+
+        },
+        error: function(user, error) {
+            console.log('注册5');
+            console.dir(error);
+            register2(response,--count,error);
+        }
+    });
+
+
+
+}
 
 var register2 = function(request,response,count,error,type)
 {
@@ -73,6 +120,7 @@ var register2 = function(request,response,count,error,type)
 
                 //注册云通信
                 cloopenSignUp(request, response, user);
+
             },
             error: function(user, error) {
                 console.log('注册5');
@@ -295,44 +343,59 @@ function base64 (text)
 var parseString = require('xml2js').parseString;
 var parse = require('xml2js').Parser();
 
+//TV注册
+AV.Cloud.define('cloopenSignUp', function(request, response) {
+
+    cloopenSignUp(request,response,'17a2836s@qq.com');
+
+});
+
 //注册云通讯
-var cloopenSignUp = function(request, response, user)
+var cloopenSignUp = function(request, response, str)
 {
     console.log('注册云通讯');
 //    console.log('注册云通讯' +user.id);
 
     var timeStr = moment().format('YYYYMMDDHHmmss');
 //    console.log('timestr:' + timeStr);
-                                             //
-    //aaf98f894032b237014047963bb9009d
+
+
+    //APP参数:
+    //应用id
     var appid = 'aaf98fda42d6912d0142dbdf2d480081';
-    var authtoken = '8705aa2c6011420b939146447c6f3dc8';
+    //主账户id
+    var accountSid = 'aaf98f894081692201409b479f6f04b6';
+    //主账户授权令牌
+    var authToken = '8705aa2c6011420b939146447c6f3dc8';
 
-    var authorizationStr = appid+':'+timeStr;
-//    console.log('authorizationStr:' + authorizationStr);
-
-    var authorization64 = base64(authorizationStr);
-//    console.log('authorization64:' + authorization64);
-
-    var sigstr = appid+authtoken+timeStr;
-
-//    console.log('sigstr:' + sigstr);
-
+    //1. sig参数 :主账户id + 主账户授权令牌 + 时间戳
+    var sigstr = accountSid + authToken + timeStr;
     var sig = md5(sigstr);
-//    console.log('sig:' + sig    );
+    console.log(timeStr);
 
-    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>'+appid+'</appId><friendlyName>' + user.get('username') + '</friendlyName><accountSid>'+appid+'</accountSid></SubAccount>';
+    //2.生成请求url : https:// 服务器地址 / REST API版本 / Accounts / 主账户id / SubAccounts?sig= + sig
+    var url = 'https://app.cloopen.com:8883/2013-03-22/Accounts/'+accountSid+'/SubAccounts?sig='+sig.toUpperCase();
+
+    // 3.生成授权 : 主账户Id + 英文冒号 + 时间戳。
+    var authorizationStr = accountSid + ':' + timeStr;
+    var authorization64 = base64(authorizationStr);
+    console.log(authorization64);
+
+    // 生成header
+
+    // 生成body
+    var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>' + appid + '</appId><friendlyName>' + str + '</friendlyName><accountSid>'+accountSid+'</accountSid></SubAccount>';
 
 //    console.log('body:' + bodyxml);
 
     AV.Cloud.httpRequest({
         method: 'POST',
-//        secureProtocol : 'SSLv2_method',
-        url: 'https://app.cloopen.com:8883/2013-03-22/Accounts/'+appid+'/SubAccounts?sig='+sig.toUpperCase(),
+        secureProtocol : 'SSLv2_method',
+        url: url,
         headers: {
-            'Content-Type': 'application/xml;charset=utf-8',
-            'Accept': 'application/xml',
-            'Authorization': authorization64
+            'Content-Type' : 'application/xml;charset=utf-8',
+            'Accept' : 'application/xml',
+            'Authorization' : authorization64
         },
         body: bodyxml,
         success:function(httpResponse) {
