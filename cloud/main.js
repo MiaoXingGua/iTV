@@ -382,7 +382,7 @@ var cloopenSignUp = function(request, response, user)
 //    console.log(authorization64);
 
     // 生成header
-
+                     console.log(user.email);
     // 生成body
     var bodyxml = '<?xml version="1.0" encoding="utf-8"?><SubAccount><appId>' + appid + '</appId><friendlyName>' + user.email + '</friendlyName><accountSid>'+accountSid+'</accountSid></SubAccount>';
 
