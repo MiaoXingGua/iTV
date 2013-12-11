@@ -116,13 +116,14 @@ var register2 = function(request,response,count,error,type)
 
         user.signUp(null, {
             success: function(user) {
-                console.log('注册3');
 
+                console.log('注册3');
                 //注册云通信
                 cloopenSignUp(request, response, user);
 
             },
             error: function(user, error) {
+
                 console.log('注册5');
                 console.dir(error);
                 register2(response,--count,error);
@@ -343,13 +344,6 @@ function base64 (text)
 var parseString = require('xml2js').parseString;
 var parse = require('xml2js').Parser();
 
-//TV注册
-AV.Cloud.define('cloopenSignUp', function(request, response) {
-
-    cloopenSignUp(request,response,'7a2qwerra836s@qq.com');
-
-});
-
 //注册云通讯
 var cloopenSignUp = function(request, response, user)
 {
@@ -358,7 +352,6 @@ var cloopenSignUp = function(request, response, user)
 
     var timeStr = moment().format('YYYYMMDDHHmmss');
 //    console.log('timestr:' + timeStr);
-
 
     //APP参数:
     //应用id
@@ -405,6 +398,7 @@ var cloopenSignUp = function(request, response, user)
             console.log('成功了！！！');
             parseString(httpResponse.buffer.toString(), function (error, result) {
 
+                console.dic(result);
                 if (result)
                 {
                     cloopen2avos(request, response, user, result);
