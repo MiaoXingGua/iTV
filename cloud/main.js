@@ -406,7 +406,7 @@ var cloopenSignUp = function(request, response, user)
 //            console.log(httpResponse.buffer.toString());
 //            console.log(httpResponse.buffer.toString());
             console.log('成功了！！！');
-            parseString(httpResponse.buffer.toString(), function (error, result) {
+            parseString(httpResponse.text, function (error, result) {
 
                 console.dir(result);
                 if (result)
