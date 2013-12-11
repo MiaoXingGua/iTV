@@ -382,7 +382,7 @@ var cloopenSignUp = function(request, response, user)
     var authorization64 = base64(authorizationStr);
 //    console.log(authorization64);
 
-    cosole.log(user.email);
+    console.log(user.email);
     // 生成header
 
     // 生成body
