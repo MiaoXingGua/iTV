@@ -1,11 +1,20 @@
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
 var User = AV.Object.extend('_User');
-var password = 'qweqwe123';
+//var password = 'qweqwe123';
 
 AV.Cloud.define("hello", function(request, response) {
     response.success("Hello world!");
 });
+
+AV.Cloud.define("datetime", function(request, response) {
+
+    var timestamp=new Date().getTime();
+//    console.log(timestamp);
+    response.success(timestamp);
+
+});
+
 
 //生成guid
 function newGuid()
