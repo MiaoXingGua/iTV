@@ -18,6 +18,27 @@ AV.Cloud.define("datetime", function(request, response) {
 
 });
 
+AV.Cloud.define("datetime", function(request, response) {
+
+//    var timestamp = new Date().getTime();
+
+    var timestamp = Date.parse(new Date());
+
+//    console.log(timestamp);
+    response.success(timestamp);
+
+    for (var i=0;i<list.length;++i)
+    {
+        //这里能得到i
+
+        query.find(
+
+    );
+    }
+
+});
+
+
 
 //生成guid
 function newGuid()
@@ -54,18 +75,11 @@ AV.Cloud.define('phone_register', function(request, response) {
 
 AV.Cloud.define('change_ip', function(request, response){
 
-    var user = null;
-    try{
-        user  = request.params.user;
-        if (user == null)
-        {
-            response.error('user为空');
-        }
+    var user = request.user;
+    if (user == null)
+    {
+        response.error('user为空');
     }
-    catch(error) {
-        response.error(error);
-    }
-
 
     var ipAddress = request.params.ipAddress;
     if (!ipAddress)
@@ -80,14 +94,12 @@ AV.Cloud.define('change_ip', function(request, response){
         success: function(user) {
 
             response.success();
-
         },
         error: function(user, error) {
 
             response.error(error);
         }
     });
-
 });
 
 var register1 = function(request,response,count,error,type)
