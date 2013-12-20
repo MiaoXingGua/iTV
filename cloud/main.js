@@ -66,8 +66,9 @@ AV.Cloud.define('change_ip', function(request, response){
         response.error('ipAddress为空');
     }
 
-    user.set('ipAddress',ipAddress);
-    user.save(null,{
+    userId = AV.Object.createWithoutData("_User", user.id);
+    userId.set('ipAddress',ipAddress);
+    userId.save(null,{
 
         success: function(user) {
 
