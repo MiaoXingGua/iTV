@@ -55,6 +55,8 @@ AV.Cloud.define('phone_register', function(request, response) {
 AV.Cloud.define('change_ip', function(request, response){
 
     var user = request.params.user;
+    response.error(user);
+
     if (!user)
     {
         response.error('user为空');
@@ -126,9 +128,6 @@ var register1 = function(request,response,count,error,type)
             register2(response,--count,error);
         }
     });
-
-
-
 }
 
 var register2 = function(request,response,count,error,type)
