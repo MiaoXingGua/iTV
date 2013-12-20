@@ -55,7 +55,17 @@ AV.Cloud.define('phone_register', function(request, response) {
 AV.Cloud.define('change_ip', function(request, response){
 
     var user = request.params.user;
+    if (!user)
+    {
+        response.error('user为空');
+    }
+
     var ipAddress = request.params.ipAddress;
+    if (!ipAddress)
+    {
+        response.error('ipAddress为空');
+    }
+
     user.set('ipAddress',ipAddress);
     user.save(null,{
 
