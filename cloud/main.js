@@ -82,7 +82,7 @@ AV.Cloud.define('change_ip', function(request, response){
     }
 
     var ipAddress = request.params.ipAddress;
-    if (!ipAddress)
+    if (ipAddress == null)
     {
         response.error('ipAddress为空');
     }
