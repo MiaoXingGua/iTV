@@ -9,7 +9,10 @@ AV.Cloud.define("hello", function(request, response) {
 
 AV.Cloud.define("datetime", function(request, response) {
 
-    var timestamp=new Date().getTime();
+//    var timestamp = new Date().getTime();
+
+    var timestamp = Date.parse(new Date());
+
 //    console.log(timestamp);
     response.success(timestamp);
 
@@ -46,6 +49,27 @@ AV.Cloud.define('phone_register', function(request, response) {
 
 //    register(request,response,10,null,'phone');
     register2(request,response,10,null,'phone');
+});
+
+
+AV.Cloud.define('change_ip', function(request, response){
+
+    var user = request.params.user;
+    var ipAddress = request.params.ipAddress;
+    user.set('ipAddress',ipAddress);
+    user.save(null,{
+
+        success: function(user) {
+
+            response.success();
+
+        },
+        error: function(user, error) {
+
+            response.error(error);
+        }
+    });
+
 });
 
 var register1 = function(request,response,count,error,type)
@@ -101,6 +125,7 @@ var register2 = function(request,response,count,error,type)
     if (count<=0) response.error(error);
 
     var username = request.params.guid;
+    var ipAddress = request.params.ipAddress;
 
     console.log(username);
 
@@ -121,6 +146,7 @@ var register2 = function(request,response,count,error,type)
         user.set("username",username);
         user.set("password", username);
         user.set("email", email);
+        user.set('ipAddress',ipAddress);
         user.set('type', type);
 
         user.signUp(null, {
@@ -458,7 +484,7 @@ var cloopen2avos = function(request, response, user, xmppInfo)
         user.set("voipPwd", voipPwd);
         user.save().then(function(user) {
 
-            var dict = {'guid':user.get('username'),'password':user.get('username'),'subAccountSid':subAccountSid,'subToken':subToken,'voipAccount':voipAccount,'voipPwd':voipPwd};
+            var dict = {'guid':user.get('username'),'password':user.get('username'),'ipAddress':user.get('ipAddress'),'subAccountSid':subAccountSid,'subToken':subToken,'voipAccount':voipAccount,'voipPwd':voipPwd};
 
             console.dir(dict);
 
