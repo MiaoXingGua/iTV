@@ -4,13 +4,13 @@ var User = AV.Object.extend('_User');
 //var password = 'qweqwe123';
 var lock = require('avos-lock');
 
-AV.Cloud.setInterval('tv_alert', 1, function(){
-
-    lock.sync('tv_alert_sync', 20000, function(done){
-
-        console.log('start');
-    });
-});
+//AV.Cloud.setInterval('tv_alert', 1, function(){
+//
+//    lock.sync('tv_alert_sync', 20000, function(done){
+//
+//        console.log('start');
+//    });
+//});
 
 
 AV.Cloud.define("hello", function(request, response) {
