@@ -286,9 +286,9 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 
 var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
-    console.dir(tvUser);
-
-    console.dir(phoneUser);
+//    console.dir(tvUser.get('username'));
+//
+//    console.dir(phoneUser.get('username'));
 
     if (tvUser && phoneUser)
     {
@@ -296,13 +296,16 @@ var bindingPhoneToTV = function(response,tvUser,phoneUser) {
         tvUser.relation('phones').add(phoneUser);
         tvUser.save().then(function(tvUser){
 
+            console.dir(tvUser);
             tvUserId = AV.Object.createWithoutData("_User", tvUser.id);
+            console.dir(tvUserId);
             phoneUser.set('tv',tvUserId);
             return phoneUser.save();
 
         }).then(function(phoneUser){
 
             console.log('绑定成功');
+            console.dir(phoneUser);
             response.success(phoneUser);
 
         },function(error){
