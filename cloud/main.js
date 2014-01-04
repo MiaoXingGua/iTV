@@ -4,13 +4,13 @@ var User = AV.Object.extend('_User');
 //var password = 'qweqwe123';
 var lock = require('avos-lock');
 
-//AV.Cloud.setInterval('tv_alert', 1, function(){
-//
-//    lock.sync('tv_alert_sync', 20000, function(done){
-//
-//        console.log('start');
-//    });
-//});
+AV.Cloud.setInterval('tv_alert', 1, function(){
+
+    lock.sync('tv_alert_sync', 20000, function(done){
+
+        console.log('start');
+    });
+});
 
 
 AV.Cloud.define("hello", function(request, response) {
@@ -241,14 +241,34 @@ var relationOfPhoneTV = function(request, response, isBinding) {
             {
                 tvUser = user;
 
-                if (isBinding)
-                {
-                    bindingPhoneToTV(response,tvUser,phoneUser);
-                }
-                else
-                {
-                    unbindingPhoneToTV(response,tvUser,phoneUser);
-                }
+                var userPQ = new AV.Query(User);
+                userPQ.equalTo("username", phoneUsername);
+
+                userPQ.first({
+                    success: function(user) {
+                        console.dir(user);
+                        if (user.get('type') == 'phone')
+                        {
+                            phoneUser = user;
+
+                            if (isBinding)
+                            {
+                                bindingPhoneToTV(response,tvUser,phoneUser);
+                            }
+                            else
+                            {
+                                unbindingPhoneToTV(response,tvUser,phoneUser);
+                            }
+                        }
+                        else
+                        {
+                            response.error('不是phone的code');
+                        }
+                    },
+                    error: function(error) {
+                        alert("Error: " + error.code + " " + error.message);
+                    }
+                });
             }
             else
             {
@@ -261,39 +281,14 @@ var relationOfPhoneTV = function(request, response, isBinding) {
         }
     });
 
-    var userPQ = new AV.Query(User);
-    userPQ.equalTo("username", phoneUsername);
-//    userQ.include('phone');
-//    userQ.include('userFavicon');
-    userPQ.first({
-        success: function(user) {
-            console.dir(user);
-            if (user.get('type') == 'phone')
-            {
-                phoneUser = user;
 
-                if (isBinding)
-                {
-                    bindingPhoneToTV(response,tvUser,phoneUser);
-                }
-                else
-                {
-                    unbindingPhoneToTV(response,tvUser,phoneUser);
-                }
-            }
-            else
-            {
-                response.error('不是phone的code');
-            }
-        },
-        error: function(error) {
-        alert("Error: " + error.code + " " + error.message);
-    }
-    });
 }
 
 var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
+    console.dir(tvUser);
+
+    console.dir(phoneUser);
 
     if (tvUser && phoneUser)
     {
