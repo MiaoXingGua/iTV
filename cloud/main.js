@@ -288,8 +288,8 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 
 var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
-    console.log('提交电视的id'+tvUser.id);
-    console.log('提交手机的id'+phoneUser.id);
+    console.log('提交电视的id: '+tvUser.id);
+    console.log('提交手机的id: '+phoneUser.id);
 
     if (tvUser && phoneUser)
     {
@@ -297,13 +297,13 @@ var bindingPhoneToTV = function(response,tvUser,phoneUser) {
         var oldTvUser = phoneUser.get('tv');
         console.log('老电视id:' + oldTvUser.id);
         oldTvUser.relation('phones').remove(phoneUser);
-        oldTvUser.save().then(function(tvUser){
+        oldTvUser.save().then(function(oldTvUser){
 
 //            phoneUser.set('tv',Null);
 //            return phoneUser.save();
 
             //开始绑定新电视
-            console.log('新电视id:' + oldTvUser.id);
+            console.log('新电视id:' + tvUser.id);
             tvUser.relation('phones').add(phoneUser);
             return tvUser.save();
 
