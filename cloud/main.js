@@ -237,6 +237,7 @@ var relationOfPhoneTV = function(request, response, isBinding) {
     userTQ.first({
         success: function(user) {
 
+
             if (user.get('type') == 'tv')
             {
                 tvUser = user;
@@ -246,7 +247,8 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 
                 userPQ.first({
                     success: function(user) {
-                        console.dir(user);
+
+
                         if (user.get('type') == 'phone')
                         {
                             phoneUser = user;
@@ -286,9 +288,8 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 
 var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
-//    console.dir(tvUser.get('username'));
-//
-//    console.dir(phoneUser.get('username'));
+    console.log('提交电视的id'+tvUser.id);
+    console.log('提交手机的id'+phoneUser.id);
 
     if (tvUser && phoneUser)
     {
