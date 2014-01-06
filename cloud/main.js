@@ -292,24 +292,36 @@ var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
     if (tvUser && phoneUser)
     {
-        console.log('开始绑定');
-        tvUser.relation('phones').add(phoneUser);
-        tvUser.save().then(function(tvUser){
+        //解除与老电视的绑定
+        var oldTvUser = phoneUser.get('tv');
+        console.log('老电视id:' + oldTvUser.id);
+        oldTvUser.relation('phones').remove(phoneUser);
+        oldTvUser.save().then(function(tvUser){
 
-            console.dir(tvUser);
-            tvUserId = AV.Object.createWithoutData("_User", tvUser.id);
-            console.dir(tvUserId);
-            phoneUser.set('tv',tvUserId);
-            return phoneUser.save();
+//            phoneUser.set('tv',Null);
+//            return phoneUser.save();
+
+            //开始绑定新电视
+            console.log('新电视id:' + oldTvUser.id);
+            tvUser.relation('phones').add(phoneUser);
+            return tvUser.save();
+
+        }).then(function(tvUser){
+
+                //替换phone中的tv字段
+                console.log('phone绑定的tvid: '+tvUser.id);
+                tvUserId = AV.Object.createWithoutData("_User", tvUser.id);
+
+                phoneUser.set('tv',tvUserId);
+                return phoneUser.save();
 
         }).then(function(phoneUser){
 
-            console.log('绑定成功');
-            console.dir(phoneUser);
-            response.success(phoneUser);
+                    console.log('绑定成功');
+//                    console.dir(phoneUser);
+                    response.success(phoneUser);
 
         },function(error){
-            console.log('绑定失败');
             response.error(error);
         });
     }
@@ -328,7 +340,7 @@ var unbindingPhoneToTV = function(response,tvUser,phoneUser) {
 
         }).then(function(phoneUser){
 
-                console.log('绑定成功');
+                console.log('解除绑定成功');
                 response.success(phoneUser);
         },function(error){
             response.error(error);
