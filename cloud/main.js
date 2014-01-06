@@ -288,8 +288,8 @@ var relationOfPhoneTV = function(request, response, isBinding) {
 
 var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
-    console.log('提交电视的id: '+tvUser.id);
-    console.log('提交手机的id: '+phoneUser.id);
+//    console.log('提交电视的id: '+tvUser.id);
+//    console.log('提交手机的id: '+phoneUser.id);
 
     if (tvUser && phoneUser)
     {
@@ -310,7 +310,7 @@ var bindingPhoneToTV = function(response,tvUser,phoneUser) {
         }).then(function(tvUser){
 
                 //替换phone中的tv字段
-                console.log('phone绑定的tvid: '+tvUser.id);
+//                console.log('phone绑定的tvid: '+tvUser.id);
                 tvUserId = AV.Object.createWithoutData("_User", tvUser.id);
 
                 phoneUser.set('tv',tvUserId);
@@ -318,12 +318,12 @@ var bindingPhoneToTV = function(response,tvUser,phoneUser) {
 
         }).then(function(phoneUser){
 
-                    console.log('绑定成功');
-//                    console.dir(phoneUser);
-                    response.success(phoneUser);
+                console.log('绑定成功 tvid: '+phoneUser.get('tv').id);
+                response.success(phoneUser);
 
         },function(error){
-            response.error(error);
+                console.log('绑定失败');
+                response.error(error);
         });
     }
 }
