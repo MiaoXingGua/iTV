@@ -20,8 +20,8 @@ AV.Cloud.define("hello", function(request, response) {
 AV.Cloud.define("datetime", function(request, response) {
 
 //    var timestamp = new Date().getTime();
-
-    var timestamp = Date.parse(new Date());
+    var timestamp = new Date().getTime();
+//    var timestamp = Date.parse(new Date());
 
 //    console.log(timestamp);
     response.success(timestamp);
@@ -49,6 +49,62 @@ AV.Cloud.define("datetime", function(request, response) {
 });
 
 
+AV.Cloud.beforeSave("Message", function(request, response){
+
+    var toUser = request.object.get('toUser');
+    var fromUser = request.object.get('fromUser');
+
+//    console.dir(toUser);
+//    console.dir(fromUser);
+//    console.log('id1 : '+toUser.id);
+//    console.log('id2 : '+fromUser.id);
+
+    var user1;
+    var user2;
+
+    if (!toUser.id || !fromUser.id)
+    {
+        console.log("联系人id为空");
+        response.error(error);
+    }
+
+    var User = AV.Object.extend('_User');
+    var userQ = new AV.Query(User);
+    userQ.equalTo('objectId',toUser.id);
+    userQ.first().then(function(user) {
+
+        console.log("1");
+        user1 = user;
+        var userQ = new AV.Query(User);
+        userQ.equalTo('objectId',fromUser.id);
+        return userQ.first();
+
+    }).then(function(user) {
+
+            console.log("2");
+            user2 = user;
+            user1.relation('contacts').add(user2);
+            return user1.save();
+
+        }).then(function(user) {
+
+            console.log("3");
+            user2.relation('contacts').add(user1);
+            return user2.save();
+
+        }).then(function(user) {
+
+            console.log("4");
+            response.success();
+
+        }, function(error) {
+            console.log("5");
+            response.error(error);
+
+        });
+
+
+});
 
 //生成guid
 function newGuid()
@@ -282,8 +338,6 @@ var relationOfPhoneTV = function(request, response, isBinding) {
             alert("Error: " + error.code + " " + error.message);
         }
     });
-
-
 }
 
 var bindingPhoneToTV = function(response,tvUser,phoneUser) {
